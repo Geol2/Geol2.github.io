@@ -1,0 +1,47 @@
+I"l<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="k">abstract</span> <span class="kd">class</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">final</span> <span class="k">function</span> <span class="n">create</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">abstract</span> <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">LgProduct</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">name</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"LG Gram laptop"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">SamsungProduct</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">name</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Samsung Always laptop"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">ProductFactory</span> <span class="kd">extends</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">__constuct</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="k">__CLASS__</span><span class="mf">.</span><span class="s2">"를 생성합니다."</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$model</span> <span class="o">==</span> <span class="s2">"LG"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nc">LgProduct</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$model</span> <span class="o">==</span> <span class="s2">"SAMSUNG"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nc">SamsungProduct</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$fac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ProductFactory</span><span class="p">;</span>
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">(</span><span class="s2">"LG"</span><span class="p">);</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+
+<span class="k">echo</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">(</span><span class="s2">"SAMSUNG"</span><span class="p">);</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+
+<span class="c1">// LG Gram laptop</span>
+<span class="c1">// Samsung Always laptop</span>
+</code></pre></div></div>
+:ET

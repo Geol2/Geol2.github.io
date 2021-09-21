@@ -1,0 +1,208 @@
+I"5<h1 id="factory-method">Factory Method</h1>
+
+<ul>
+  <li>팩토리 패턴의 확장 패턴</li>
+  <li>팩토리 파턴과 템플릿 메서드 패턴이 결함된 패턴</li>
+</ul>
+
+<h2 id="추상화">추상화</h2>
+
+<ul>
+  <li>추상화 기법을 사용하여 패턴을 확장</li>
+</ul>
+
+<h2 id="객체지향의-추상화">객체지향의 추상화</h2>
+
+<ul>
+  <li>중요한 부분만 분리하여 처음부터 하나하나 살펴보지 않아도 이해하기 쉽게 만드는 작업</li>
+  <li>코드를 요약, 골격을 형성하는 작업</li>
+  <li>동작을 쉽게 이해하기 위해서 작성</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">abstract</span> <span class="kd">class</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="c1">//...</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h2 id="패턴-확장">패턴 확장</h2>
+
+<h3 id="팩토리">팩토리</h3>
+
+<ul>
+  <li>LgProduct.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kd">class</span> <span class="nc">LgProduct</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">name</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"LG Gram laptop"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>factory.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">final</span> <span class="k">function</span> <span class="n">create</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nc">LgProduct</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>index.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">require</span> <span class="s1">'factory.php'</span><span class="p">;</span>
+<span class="k">require</span> <span class="s1">'LgProduct.php'</span><span class="p">;</span>
+
+<span class="nv">$fac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Factory</span><span class="p">;</span>
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">();</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h2 id="추상화-1">추상화</h2>
+
+<ul>
+  <li>위의 추상화를 결합하고 패턴을 확장해 구현한다.</li>
+  <li>
+    <p>인터페이스 vs 추상화</p>
+  </li>
+  <li>factory.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="n">factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">final</span> <span class="k">function</span> <span class="n">create</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">createProduct</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">abstract</span> <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">();</span> <span class="c1">// 추상메소드 선언</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>이 factory 클래스 안에는 추상 메소드가 선언이 되어 있고 독립적인 factory 클래스 선언은 에러를 발생시킴.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fatal error: Uncaught Error: Cannot instantiate abstract class Factory in /Users/geol/Desktop/Dev/Today-I-Learned/PHP/DesignPattern/3. FactoryMethod Pattern/index.php:9 Stack trace: #0 {main} thrown in /Users/geol/Desktop/Dev/Today-I-Learned/PHP/DesignPattern/3. FactoryMethod Pattern/index.php on line 9
+</code></pre></div></div>
+
+<ul>
+  <li>추상 클래스를 상속받아 구현부 클래스를 만들고 해당 <code class="language-plaintext highlighter-rouge">abstract public function</code> 메소드를 구현해주어야 한다.</li>
+</ul>
+
+<h2 id="개방-폐쇄-원칙--ocp-">개방-폐쇄 원칙 ( OCP )</h2>
+
+<ul>
+  <li>소프트웨어 개체(클래스, 모듈, 함수 등등)는 확장에 대해 열려 있어야 하고, 수정에 대해서는 닫혀 있어야 한다 (위키)</li>
+</ul>
+
+<h2 id="최종">최종</h2>
+
+<ul>
+  <li>Factory.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">abstract</span> <span class="kd">class</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">final</span> <span class="k">function</span> <span class="n">create</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">abstract</span> <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>ProductFactory.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kd">class</span> <span class="nc">ProductFactory</span> <span class="kd">extends</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">echo</span> <span class="k">__CLASS__</span><span class="mf">.</span><span class="s2">"를 생성합니다."</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$model</span> <span class="o">==</span> <span class="s1">'LG'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nc">LgProduct</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$model</span> <span class="o">==</span> <span class="s1">'SAMSUNG'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nc">SamsungProduct</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>index.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"factory.php"</span><span class="p">;</span>
+<span class="k">require</span> <span class="s2">"LgProduct.php"</span><span class="p">;</span>
+<span class="k">require</span> <span class="s2">"SamsungProduct.php"</span><span class="p">;</span>
+<span class="k">require</span> <span class="s2">"ProductFactory.php"</span><span class="p">;</span>
+
+<span class="nv">$fac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ProductFactory</span><span class="p">;</span>
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">(</span><span class="s2">"LG"</span><span class="p">);</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">(</span><span class="s2">"SAMSUNG"</span><span class="p">);</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+
+<span class="c1">// ProductFactory를 생성합니다.</span>
+<span class="c1">// LG Gram laptop</span>
+<span class="c1">// Samsung Always laptop</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="k">abstract</span> <span class="kd">class</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">final</span> <span class="k">function</span> <span class="n">create</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">abstract</span> <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">LgProduct</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">name</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"LG Gram laptop"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">SamsungProduct</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">name</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Samsung Always laptop"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">ProductFactory</span> <span class="kd">extends</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">__constuct</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="k">__CLASS__</span><span class="mf">.</span><span class="s2">"를 생성합니다."</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$model</span> <span class="o">==</span> <span class="s2">"LG"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nc">LgProduct</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$model</span> <span class="o">==</span> <span class="s2">"SAMSUNG"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nc">SamsungProduct</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$fac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ProductFactory</span><span class="p">;</span>
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">(</span><span class="s2">"LG"</span><span class="p">);</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+
+<span class="k">echo</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">(</span><span class="s2">"SAMSUNG"</span><span class="p">);</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+
+<span class="c1">// LG Gram laptop</span>
+<span class="c1">// Samsung Always laptop</span>
+</code></pre></div></div>
+:ET

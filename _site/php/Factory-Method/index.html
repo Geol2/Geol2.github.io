@@ -1,0 +1,652 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Factory Method Pattern - GEOL Blog</title>
+<meta name="description" content="Factory Method">
+
+
+  <meta name="author" content="GEOL">
+  
+  <meta property="article:author" content="GEOL">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="GEOL Blog">
+<meta property="og:title" content="Factory Method Pattern">
+<meta property="og:url" content="/php/Factory-Method/">
+
+
+  <meta property="og:description" content="Factory Method">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-09-22T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-09-22T13:20:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/php/Factory-Method/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GEOL",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="GEOL Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          GEOL Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/">Posts</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/logo.png" alt="GEOL" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">GEOL</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Hello World.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Korea, South</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/geol2" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:big9401@gmail.com">
+            <meta itemprop="email" content="big9401@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Factory Method Pattern">
+    <meta itemprop="description" content="Factory Method">
+    <meta itemprop="datePublished" content="2021-09-22T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-09-22T13:20:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Factory Method Pattern
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h1 id="factory-method">Factory Method</h1>
+
+<ul>
+  <li>팩토리 패턴의 확장 패턴</li>
+  <li>팩토리 파턴과 템플릿 메서드 패턴이 결함된 패턴</li>
+</ul>
+
+<h2 id="추상화">추상화</h2>
+
+<ul>
+  <li>추상화 기법을 사용하여 패턴을 확장</li>
+</ul>
+
+<h2 id="객체지향의-추상화">객체지향의 추상화</h2>
+
+<ul>
+  <li>중요한 부분만 분리하여 처음부터 하나하나 살펴보지 않아도 이해하기 쉽게 만드는 작업</li>
+  <li>코드를 요약, 골격을 형성하는 작업</li>
+  <li>동작을 쉽게 이해하기 위해서 작성</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">abstract</span> <span class="kd">class</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="c1">//...</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h2 id="패턴-확장">패턴 확장</h2>
+
+<h3 id="팩토리">팩토리</h3>
+
+<ul>
+  <li>LgProduct.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kd">class</span> <span class="nc">LgProduct</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">name</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"LG Gram laptop"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>factory.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">final</span> <span class="k">function</span> <span class="n">create</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nc">LgProduct</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>index.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">require</span> <span class="s1">'factory.php'</span><span class="p">;</span>
+<span class="k">require</span> <span class="s1">'LgProduct.php'</span><span class="p">;</span>
+
+<span class="nv">$fac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Factory</span><span class="p">;</span>
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">();</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h2 id="추상화-1">추상화</h2>
+
+<ul>
+  <li>위의 추상화를 결합하고 패턴을 확장해 구현한다.</li>
+  <li>
+    <p>인터페이스 vs 추상화</p>
+  </li>
+  <li>factory.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="n">factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">final</span> <span class="k">function</span> <span class="n">create</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">createProduct</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">abstract</span> <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">();</span> <span class="c1">// 추상메소드 선언</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>이 factory 클래스 안에는 추상 메소드가 선언이 되어 있고 독립적인 factory 클래스 선언은 에러를 발생시킴.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fatal error: Uncaught Error: Cannot instantiate abstract class Factory in /Users/geol/Desktop/Dev/Today-I-Learned/PHP/DesignPattern/3. FactoryMethod Pattern/index.php:9 Stack trace: #0 {main} thrown in /Users/geol/Desktop/Dev/Today-I-Learned/PHP/DesignPattern/3. FactoryMethod Pattern/index.php on line 9
+</code></pre></div></div>
+
+<ul>
+  <li>추상 클래스를 상속받아 구현부 클래스를 만들고 해당 <code class="language-plaintext highlighter-rouge">abstract public function</code> 메소드를 구현해주어야 한다.</li>
+</ul>
+
+<h2 id="개방-폐쇄-원칙--ocp-">개방-폐쇄 원칙 ( OCP )</h2>
+
+<ul>
+  <li>소프트웨어 개체(클래스, 모듈, 함수 등등)는 확장에 대해 열려 있어야 하고, 수정에 대해서는 닫혀 있어야 한다 (위키)</li>
+</ul>
+
+<h2 id="최종">최종</h2>
+
+<ul>
+  <li>Factory.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">abstract</span> <span class="kd">class</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">final</span> <span class="k">function</span> <span class="n">create</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">abstract</span> <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>ProductFactory.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kd">class</span> <span class="nc">ProductFactory</span> <span class="kd">extends</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">echo</span> <span class="k">__CLASS__</span><span class="mf">.</span><span class="s2">"를 생성합니다."</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$model</span> <span class="o">==</span> <span class="s1">'LG'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nc">LgProduct</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$model</span> <span class="o">==</span> <span class="s1">'SAMSUNG'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nc">SamsungProduct</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>index.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"factory.php"</span><span class="p">;</span>
+<span class="k">require</span> <span class="s2">"LgProduct.php"</span><span class="p">;</span>
+<span class="k">require</span> <span class="s2">"SamsungProduct.php"</span><span class="p">;</span>
+<span class="k">require</span> <span class="s2">"ProductFactory.php"</span><span class="p">;</span>
+
+<span class="nv">$fac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ProductFactory</span><span class="p">;</span>
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">(</span><span class="s2">"LG"</span><span class="p">);</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">(</span><span class="s2">"SAMSUNG"</span><span class="p">);</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+
+<span class="c1">// ProductFactory를 생성합니다.</span>
+<span class="c1">// LG Gram laptop</span>
+<span class="c1">// Samsung Always laptop</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="k">abstract</span> <span class="kd">class</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">final</span> <span class="k">function</span> <span class="n">create</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">abstract</span> <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">LgProduct</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">name</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"LG Gram laptop"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">SamsungProduct</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">name</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Samsung Always laptop"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">ProductFactory</span> <span class="kd">extends</span> <span class="nc">Factory</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">__constuct</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="k">__CLASS__</span><span class="mf">.</span><span class="s2">"를 생성합니다."</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">createProduct</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$model</span> <span class="o">==</span> <span class="s2">"LG"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nc">LgProduct</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$model</span> <span class="o">==</span> <span class="s2">"SAMSUNG"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nc">SamsungProduct</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$fac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ProductFactory</span><span class="p">;</span>
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">(</span><span class="s2">"LG"</span><span class="p">);</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+
+<span class="k">echo</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+
+<span class="nv">$pro</span> <span class="o">=</span> <span class="nv">$fac</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">(</span><span class="s2">"SAMSUNG"</span><span class="p">);</span>
+<span class="nv">$pro</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">();</span>
+
+<span class="c1">// LG Gram laptop</span>
+<span class="c1">// Samsung Always laptop</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#design-pattern" class="page__taxonomy-item" rel="tag">Design Pattern</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#php" class="page__taxonomy-item" rel="tag">PHP</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-09-22">September 22, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Factory+Method+Pattern%20%2Fphp%2FFactory-Method%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fphp%2FFactory-Method%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2Fphp%2FFactory-Method%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+            
+      </div>
+    </div>
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="htts://github.com/geol2" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 GEOL. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

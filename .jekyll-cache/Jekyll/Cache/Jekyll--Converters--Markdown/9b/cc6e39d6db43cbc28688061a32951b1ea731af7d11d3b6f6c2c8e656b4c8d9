@@ -1,0 +1,71 @@
+I"D<h2 id="intro">Intro</h2>
+
+<ul>
+  <li>Education : Graduate University</li>
+  <li>Wanted position : Server Development</li>
+  <li>Git : <a href="https://github.com/geol2">Geol2</a></li>
+</ul>
+
+<h2 id="award--certificates">Award &amp; Certificates</h2>
+
+<ul>
+  <li>임베디드 SW 경진대회 : 장관상 (2019)</li>
+  <li>학부 SW전시회 : 학부장상 (2019)</li>
+  <li>정보처리기사 (2020)</li>
+  <li>문서 작성 관련 자격증 등등</li>
+</ul>
+
+<h2 id="works-experience">Works Experience</h2>
+
+<ul>
+  <li>PHP
+    <ul>
+      <li>Regacy : v5.4 ~ 5.6
+        <ul>
+          <li>Shopping Mall (ALLVETMALL, VETMALL, ADMIN)</li>
+          <li>Payment module troubleShotting experience</li>
+          <li>IntoVetGE 기능 연동</li>
+        </ul>
+      </li>
+      <li>CodeIgniter 3, 4 : v7.4 ~ 8.0 (MVC)
+        <ul>
+          <li>ALLVET : Regacy Refactoring</li>
+          <li>GreenVet : 간단한 게시판 구현</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>C++
+    <ul>
+      <li>Abstract_Method : Kit Integration</li>
+      <li>In2Guide Designer : Modified Implant spec (print .pdf)</li>
+      <li>Kit : .Lua porting</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="laguage-skills--study">Laguage skills &amp; Study</h2>
+
+<ul>
+  <li>Algorithm</li>
+  <li>Java
+    <ul>
+      <li>(Study) Basic</li>
+    </ul>
+  </li>
+  <li>JavaScript
+    <ul>
+      <li>(Study) Express Frameworks</li>
+    </ul>
+  </li>
+  <li>C
+    <ul>
+      <li>Data Struture : LinkedList, Stack, Queue</li>
+      <li>Pointer</li>
+      <li>TCP/IP Socket (uh…)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="problem">Problem</h2>
+:ET

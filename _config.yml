@@ -103,7 +103,7 @@ author:
   name: "GEOL"
   avatar: "/assets/images/logo.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio: "Hello World."
-  location: "Korea, South"
+  location: "South Korea, Seongnam"
   email: "big9401@gmail.com"
   links:
     - label: "Email"

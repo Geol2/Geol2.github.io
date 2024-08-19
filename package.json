@@ -1,5 +1,5 @@
 {
-  "homepage" : "https://diary.geol2.com/",
+  "homepage": "https://diary.geol2.com/",
   "dependencies": {
     "bootstrap": "^5.3.3",
     "ejs": "^3.1.10",
@@ -7,8 +7,7 @@
     "gh-pages": "^6.1.1"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "start": "node index.js"
   }
 }

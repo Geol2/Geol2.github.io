@@ -1,13 +1,8 @@
 {
-  "homepage": "https://diary.geol2.com/",
+  "homepage": "https://diary.geol2.com",
+  "name": "geol2.github.io",
+  "version": "0.0.0",
+  "private": true,
   "dependencies": {
-    "bootstrap": "^5.3.3",
-    "ejs": "^3.1.10",
-    "express": "^4.19.2",
-    "gh-pages": "^6.1.1"
-  },
-  "scripts": {
-    "deploy": "gh-pages -d dist",
-    "start": "node index.js"
   }
 }

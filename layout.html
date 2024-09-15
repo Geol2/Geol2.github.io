@@ -21,15 +21,13 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="/index.html">Home <span class="sr-only">(current)</span></a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="/diary.html">diary</a>
+            <li class="nav-item active">
+              <a class="nav-link" href="/index.html">Retrospective</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/about.html">about</a>
-            </li> -->
+            
             <li class="nav-item">
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
@@ -58,10 +56,15 @@
                 </div>
               </div>
 
-              <!-- 목록 -->
+              <!-- 사이드 목록 -->
               <div class="bd-toc-item">
                 <a class="bd-toc-link" href="/index.html">
                   Home
+                </a>
+              </div>
+              <div class="bd-toc-item">
+                <a class="bd-toc-link active" href="/index.html">
+                  Retrospective
                 </a>
               </div>
             </nav>
@@ -89,8 +92,7 @@
                   }</p>
                 </div>
               </div>
-              
-            
+
               <div class="container-fluid py-md-3 text-center">
                 <a href="https://hits.seeyoufarm.com">
                   <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fgeol2&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/>
@@ -102,8 +104,22 @@
       </div>
     </div>
 
+    <div class="container my-2">
+      <h1 class="bd-title">Contents List</h1>
+      <div class="contents" id="contents-list">
+          
+          <ul class="list-group">
+            <li class="list-group-item">
+              <a href="javascript:void(0);" onclick="loadContent('20240301.html')">2024 March Retrospective</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <div id="contents" class="container my-2">
-      
+      <h1 class="bd-title">Contents</h1>
+      <div class="contents" id="contents-body"></div>
     </div>
   </body>
 </html>

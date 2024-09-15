@@ -10,11 +10,46 @@
     <title>Geol Diary</title>
   </head>
   <body class="typewriter">
-    <div id="app"></div>
-    
+    <div id="app" data-include-path="./layout.html"></div>
+    <script>
+      function includehtml() {
+        let allElements = $("#app");
+        Array.prototype.forEach.call(allElements, function (el) {
+          let includePath = el.dataset.includePath;
+          if (includePath) {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+              if (this.readyState == 4 && this.status == 200) {
+                el.outerHTML = this.responseText;
+              }
+            };
+            xhttp.open('GET', includePath, false);
+            xhttp.send();
+          }
+        });
+      }
 
-    <script type="text/javascript">
-      $("#app").load("./layout.html");
+      $(document).ready(function () {
+        includehtml();
+      });
+
+      function loadContent(url) {
+        $.ajax({
+          url: '/_posts/' + url,
+          method: 'GET',
+          success: function (data) {
+            $('#contents-body').html(data); // URL에서 가져온 내용을 contents-body에 삽입
+          },
+          error: function () {
+            $('#contents-body').html('<p>Error loading content.</p>');
+          }
+        });
+      }
+
+      window.onload = function() {
+        // let contents = document.getElementById("contents-body");
+        // contents.innerHTML = loadContent('20240301.html');
+      };
     </script>
   </body>
 </html>

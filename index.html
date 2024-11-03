@@ -10,9 +10,17 @@
     <title>Geol Diary</title>
   </head>
   <body class="typewriter">
-    <div id="app" data-include-path="./layout.html"></div>
+    <div id="app" data-include-path="./layout.html">
+    </div>
     
     <script type="text/javascript">
+
+      let contents = [
+        {
+          fileName: '20241101.html',
+          name: '2024 November Retrospective'
+        },
+      ];
 
       function includehtml() {
         let allElements = $("#app");
@@ -47,13 +55,6 @@
           }
         });
       }
-
-      let contents = [
-        {
-          fileName: '20240301.html',
-          name: '2024 March Retrospective'
-        },
-      ];
 
       function loadStudyList() {
 

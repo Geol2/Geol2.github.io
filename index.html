@@ -20,6 +20,10 @@
           fileName: '20241101.html',
           name: '2024 November Retrospective'
         },
+        {
+          fileName: '20250201.html',
+          name: '2025 February Retrospective'
+        }
       ];
 
       function includehtml() {
@@ -61,14 +65,12 @@
       }
 
       function loadContentsList() {
-        let contentsElement = document.getElementById('contents-list');
+        let contentsElement = document.getElementById('list-group');
         
         contents.forEach((item) => {
-          let html = `<ul class="list-group">
-                      <li class="list-group-item">
+          let html = `<li class="list-group-item" style="padding: 5px 1px;">
                         <a href="javascript:void(0);" onclick="loadContent('${item.fileName}')">${item.name}</a>
-                      </li>
-                    </ul>`;
+                      </li>`;
           contentsElement.innerHTML += html;
         });
       }

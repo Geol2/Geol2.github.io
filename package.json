@@ -4,5 +4,6 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "geol2.github.io": "file:"
   }
 }

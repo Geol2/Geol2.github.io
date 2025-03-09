@@ -1,34 +1,147 @@
-
 <div class="container my-2">
-  <h2 class="bd-title">Jenkins</h1>
-  <p>Jenkins를 후다닥 도입해서 훅 걸어서 커밋하면 자동으로 배포하기</p>
-  <p>Git와 Jenkins 간에 빠른 연결과 Commit & Push 시, 사람이 직접 배포하기 힘드니까 빠르게 Shell 스크립트를 작성해서 개발에 집중하기</p>
-  
-  <img src="./../public/images/202502-jenkins(1).png" alt="no" style="width: 600px;" />
-  <p>(나이스한 배포..)</p>
-  
-  <h2 class="bd-title">Nginx</h2>
-  <img src="./../public/images/202502-nginx(1).png" alt="no" style="width: 600px;" />
-  <p>(그냥 깔끔시리하게 각 파일별로 세팅하기)</p>
+  <p>Strang의 Linear Algebra를 공부하고 있고 선형대수학은 데이터처리와 컴퓨터 데이터 처리를 다루는 것에 더 적합하다.</p>
+  <p>또 다르게 미적분학이 항상 언급되는데 말그대로 물리학, 공학, 자연적인 변화와 움직임을 표현하는데에 적합하다. 상호보완적이다.</p>
+  <p>가우시안 소거법이 가장 먼저 언급되는 것 같고 처음 들어보는 내용이였다.</p>
+  <p>가우시안 소거법은 행렬을 통해서 연립방정식을 풀어내는 방법이다. 일반적으로 배웠던 소거법이 가우시안 소거법을 간소화한 것이고 많은 데이터를 다뤄야할 땐 행렬을 이용한 방법이 효율적이다.</p>
+  <p>가우시안 소거법에서 A=LU 분해를 이용하면 Ax=b형태의 연립방정식을 풀어볼 수 있다</p>
+  <math display="block">
+    <mrow>
+      <mrow>
+        <mi>A</mi>
+        <mo>=</mo>
+        <mi>L</mi>
+        <mi>U</mi>
+      </mrow>
+    </mrow>
+  </math>
+  <br>
 
-  <p>사실 이 모든 설정이 한 서버내에서 모두 이루어지고 있다 ㅋㅋ 어짜피 누가오겠는가..(하하)</p>
+  <p>L : 하삼각행렬, U: 상삼각행렬</p>
 
-  <h2 class="bd-title">코드 작성하기</h2>
-  <p>마구마구 만들지 말고 결합도와 밀집도를 고려해서 작성하기</p>
+  <math display="block">
+    <mrow>
+      <mo>A</mo>
+      <mo>=</mo>
+      <mo>(</mo>
+      <mtable>
+        <mtr>
+          <mtd><mi>1</mi></mtd>
+          <mtd><mi>2</mi></mtd>
+        </mtr>
+        <mtr>
+          <mtd><mi>4</mi></mtd>
+          <mtd><mi>5</mi></mtd>
+        </mtr>
+      </mtable>
+      <mo>)</mo>
+    </mrow>
+  </math>
 
-  <h2 class="bd-title">Admin</h2>
-  <p>Java Spring 도입</p>
-  <p>운영자만을 위한 전반적인 구조를 관리함 (배너, 이벤트, 토큰 관리, 비즈니스 관리 등등)</p>
+  <p>해당 행렬을 Factorization 하면 다음과 같다.</p>
 
-  <h2 class="bd-title">Web (Home)</h2>
-  <p>React(Remix) 도입</p>
-  <p>내 홈페이지를 소개할 예정</p>
+  <math display="block">
+    <mrow>
+      <mo>(</mo>
+      <mtable>
+        <mtr>
+          <mtd><mi>1</mi></mtd>
+          <mtd><mi>2</mi></mtd>
+        </mtr>
+        <mtr>
+          <mtd><mi>4</mi></mtd>
+          <mtd><mi>5</mi></mtd>
+        </mtr>
+      </mtable>
+      <mo>)</mo>
 
-  <h2 class="bd-title">Diary</h2>
-  <p>걍 ㅈㄴ 일기장</p>
+      <mo>=</mo>
+      
+      <mo>(</mo>
+      <mtable>
+        <mtr>
+          <mtd><mi>1</mi></mtd>
+          <mtd><mi>0</mi></mtd>
+        </mtr>
+        <mtr>
+          <mtd><mi>4</mi></mtd>
+          <mtd><mi>1</mi></mtd>
+        </mtr>
+      </mtable>
+      <mo>)</mo>
 
-  <h2 class="bd-title">Open API</h2>
-  <p>NestJs 도입</p>
-  <p>간단한 사용 인증만 되면 사용할 수 있음 ㅎㅋㅎㅋ</p>
-  
+      <mo>(</mo>
+      <mtable>
+        <mtr>
+          <mtd><mi>1</mi></mtd>
+          <mtd><mi>2</mi></mtd>
+        </mtr>
+        <mtr>
+          <mtd><mi>0</mi></mtd>
+          <mtd><mi>-3</mi></mtd>
+        </mtr>
+      </mtable>
+      <mo>)</mo>
+      
+      <mo>=</mo>
+
+      <mi>L</mi>
+      <mi>U</mi>
+    </mrow>
+  </math>
+
+  <p>위처럼 Factorization 과정이 독특했는데 U(상삼각행렬)의 2행 1열을 0으로 강제로 만들기 위해서 U의 2행 1열, 2열을 아래처럼 계산해줘야한다</p>
+
+  <p>
+    <math>
+      <mrow>
+        <msub>
+          <mi>a</mi>
+          <mrow>
+            <mn>1</mn>
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>*</mo>
+        <mi>-4</mi>
+        <mo>*</mo>
+        <msub>
+          <mi>a</mi>
+          <mrow>
+            <mn>2</mn>
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mi>0</mi>
+        <mo>,</mo>
+      </mrow>
+    </math>
+
+    <math>
+      <mrow>
+        <msub>
+          <mi>a</mi>
+          <mrow>
+            <mn>1</mn>
+            <mn>2</mn>
+          </mrow>
+        </msub>
+        <mo>*</mo>
+        <mi>-4</mi>
+        <mo>*</mo>
+        <msub>
+          <mi>a</mi>
+          <mrow>
+            <mn>2</mn>
+            <mn>2</mn>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mi>-3</mi>
+      </mrow>
+    </math>
+  </p>
+
+  <p>위 식을 통해서 (L의 역행렬) * A = U 라는 것을 도출해낼 수 있고 A = L * U가 된다. </p>
+  <p>그럼 Ly = b(전방대입), Ux = y(후방대입) 순서대로 x = -1, y = -2 값을 도출해낼 수 있다.</p>
 </div>

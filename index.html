@@ -19,16 +19,19 @@
         {
           index: 0,
           fileName: 'project-20241101.html',
-          name: 'project'
+          name: 'Project'
         },
         {
           index: 1,
-          fileName: '20250201.html',
+          fileName: 'empty.html',
           name: 'Linear Algebra',
-          details: {
-            index: 0,
-            fileName: '20250201.html',
-          }
+          details: [
+            {
+              index: 0,
+              name: 'Introduction',
+              fileName: '20250201.html',
+            }
+          ]
         }
       ];
 
@@ -72,13 +75,46 @@
 
       function loadContentsList() {
         let contentsElement = document.getElementById('list-group');
-        
+        let html = ``;
+
+        // console.log(contents);
         contents.forEach((item) => {
-          let html = `<li class="list-group-item" style="padding: 5px 1px;">
-                        <a href="javascript:void(0);" onclick="loadContent('${item.fileName}')">${item.name}</a>
-                      </li>`;
-          contentsElement.innerHTML += html;
+          html += `
+            <a class="nav bd-sidenav-active list-group-item" 
+                style="padding: 5px 1px; flex-direction: column;"
+                href="javascript:void(0);" onclick="loadContent('${item.fileName}')"
+                id='${item.name}'">
+              ${item.name}
+            </a>`;
         });
+        contentsElement.innerHTML += html;
+        
+        console.log(contents[1].details);
+        if(!contents[1].details) {
+          return;
+        }
+        if(contents[1].details.length < 1) {
+          return;
+        }
+        
+        let detailHtml = ``;
+        let LinearDetail = document.getElementById('Linear Algebra');
+        let count = contents[1].details.length;
+        let i = 0;
+        contents[1].details.forEach((item) => {
+          // console.log(count);
+          if(i === 0) {
+            detailHtml += `<ul class="nav bd-sidenav-active" style="flex-direction: column; padding: 2px;">`;
+          }
+          detailHtml += `<li class="bd-sidenav-active"><a href="#">${item.name}</a></li>`;
+          if(i === 0) {
+            detailHtml += `</ul>`;
+          }
+
+          i++;
+        });
+        LinearDetail.innerHTML += detailHtml;
+
       }
 
       window.onload = function() {

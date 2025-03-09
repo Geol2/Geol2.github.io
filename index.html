@@ -80,12 +80,14 @@
         // console.log(contents);
         contents.forEach((item) => {
           html += `
-            <a class="nav bd-sidenav-active list-group-item" 
-                style="padding: 5px 1px; flex-direction: column;"
-                href="javascript:void(0);" onclick="loadContent('${item.fileName}')"
-                id='${item.name}'">
-              ${item.name}
-            </a>`;
+            <a class="nav bd-sidenav-active list-group-item"` +
+              `style="padding: 5px 1px; flex-direction: column;"`;
+          if(!item.details) {
+            html += `href="javascript:void(0);" onclick="loadContent('${item.fileName}')"`;
+          }
+              html += `id='${item.name}'">` +
+            `${item.name}` +
+          `</a>`;
         });
         contentsElement.innerHTML += html;
         
@@ -106,7 +108,12 @@
           if(i === 0) {
             detailHtml += `<ul class="nav bd-sidenav-active" style="flex-direction: column; padding: 2px;">`;
           }
-          detailHtml += `<li class="bd-sidenav-active"><a href="#">${item.name}</a></li>`;
+          detailHtml += `
+            <li class="bd-sidenav-active">
+              <a href="javascript:void(0);" onclick="loadContent('${item.fileName}')">
+                ${item.name}
+              </a>
+            </li>`;
           if(i === 0) {
             detailHtml += `</ul>`;
           }

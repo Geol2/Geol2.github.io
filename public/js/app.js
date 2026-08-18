@@ -22,6 +22,12 @@
       ]
     },
     {
+      name: 'LLM',
+      children: [
+        { name: '텍스트 데이터 다루기', file: 'llm/20260818.html' }
+      ]
+    },
+    {
       name: 'Posts',
       children: []
     }

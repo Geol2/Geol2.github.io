@@ -1,136 +1,82 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    
-    <link rel="stylesheet" href="./public/css/bootstrap.min.css">
+<!--
+  index.html 의 #app 자리에 통째로 삽입되는 조각(partial).
+  여기에는 doctype / html / head / body 를 넣지 않는다. (index.html 이 문서 껍데기를 담당)
+-->
+<div class="site">
 
-    <title>Geol Diary</title>
-  </head>
-  <body class="typewriter">
-    <style>
-      @font-face {
-        font-family: 'DOSMyungjo';
-        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSMyungjo.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-    }
+  <!-- 상단 헤더 -->
+  <header class="site-header navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Geol Diary</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-nav" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    .dos-myungjo {
-      font-family: 'DOSMyungjo';
-    }
-    </style>
-
-    <div class="header">
-      <!-- 상단 헤더 -->
-      <header class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/" disabled>Geol Diary</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" id="retrospective" data-retrospective="active">retrospec</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-          </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </div>
-      </header>
+    <div class="collapse navbar-collapse" id="site-nav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/" data-nav="home">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="javascript:void(0);" id="retrospective" data-retrospective="active">retrospec</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0" id="search-form" onsubmit="return false;">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
     </div>
+  </header>
 
-    <main role="main">
-      <!-- 내 사진이랑 목차, 소개 영역 -->
-      <div class="container-fluid">
-        <div class="row flex-xl-nowrap justify-content-center">
+  <main class="site-main" role="main">
+    <div class="layout">
 
-          <div class="my-2 col-xl-2 bd-sidebar">
-            <h1 class="bd-title">Index List</h1>
-            <div class="collapse bd-links contents" id="contents-list">
-              <div class="bd-toc-item list-group active" id="list-group">
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-3 col-xl-2 bd-sidebar">
-            <nav class="collapse bd-links" id="bd-docs-nav" aria-label="Main navigation">
-              <!-- 내 사진 -->
-              <div class="card my-2">
-                <img src="./public/images/profile.jpg"
-                      class="card-img-top"
-                      style="display: block"
-                      alt="...">
-                <div class="card-body">
-                  <div class="card-title">GEOL</div>
-                  <p class="card-text">Hello, World! </p>
-                </div>
-              </div>
-
-              <!-- 사이드 목록 -->
-              <div class="bd-toc-item">
-                <a class="bd-toc-link" href="/">
-                  Home
-                </a>
-              </div>
-              <!-- <div class="bd-toc-item"> -->
-                <!-- <a class="bd-toc-link"> -->
-                  <!-- Retrospective -->
-                <!-- </a> -->
-              <!-- </div> -->
-            </nav>
-          </div>
-
-          <!-- 레이아웃 영역 -->
-          <div id="my" class="d-flex row align-items-center mx-3">
-            <div class="my-page list-group">
-              <div class="my-2">
-                <h1 class="text-center">Welcome to Geol Diary</h1>
-              </div>
-              
-              <div class="card w-100">
-                <div class="card-header">Featured</div>
-                <div class="card-body">
-                  <p>{<br>
-                    &emsp;"name"    : "geol",<br>
-                    &emsp;"job"     : "Developer",<br>
-                    &emsp;"birthday": "1994-01-18",<br>
-                    &emsp;"country" : "South Korea",<br>
-                    &emsp;"city"    : "Young-in",<br>
-                    &emsp;"stack"   : ["JAVA", "C++", "PHP", "MySQL", "HTML", "CSS", "JS", "Vue", "..."],<br>
-                    &emsp;"interest": ["Clean Code", "Testing", "Linux", "..."],<br>
-                    &emsp;"quote"   : "There is nothing good unless you do it. - Erich Kästner"<br>
-                  }</p>
-                </div>
-              </div>
-            </div>
+      <!-- 왼쪽: 프로필 + 목차 -->
+      <aside class="sidebar">
+        <div class="card">
+          <img src="./public/images/profile.jpg" class="card-img-top" alt="GEOL">
+          <div class="card-body">
+            <div class="card-title">GEOL</div>
+            <p class="card-text">Hello, World!</p>
           </div>
         </div>
-      </div>
 
-      <div id="contents" class="container my-2">
-        <h1 class="bd-title">Contents</h1>
-        <div class="contents dos-myungjo" id="contents-body">
-          <div class="list-group">
-            <p>IN-GEOL BAEK</p>
-          </div>
+        <div class="sidebar-title" id="index-title">
+          <span>Index List</span>
+          <button type="button" class="btn btn-sm sidebar-toggle" aria-label="Toggle index">+/-</button>
         </div>
-      </div>
-    </main>
+        <nav class="sidebar-nav" aria-label="Index">
+          <ul class="index-tree" id="index-tree"></ul>
+        </nav>
+      </aside>
 
-  </body>
-</html>
+      <!-- 오른쪽: 본문 (사이드바 클릭 시 이 영역만 교체된다) -->
+      <section class="content">
+        <h1 class="content-title" id="content-title">Home</h1>
+        <div class="content-body readable dos-myungjo" id="content-body"></div>
+      </section>
+
+    </div>
+  </main>
+
+</div>
+
+<!-- 첫 화면(Home). 본문 영역에 그대로 렌더된다. -->
+<template id="home-template">
+  <h1 class="text-center">Welcome to Geol Diary</h1>
+
+  <div class="card w-100 my-4">
+    <div class="card-header">Featured</div>
+    <div class="card-body">
+      <p>{<br>
+        &emsp;"name"&emsp;&emsp;: "geol",<br>
+        &emsp;"job"&emsp;&emsp;&emsp;: "Developer",<br>
+        &emsp;"birthday": "1994-01-18",<br>
+        &emsp;"country"&nbsp;: "South Korea",<br>
+        &emsp;"city"&emsp;&emsp;: "Young-in",<br>
+        &emsp;"stack"&emsp;&nbsp;: ["JAVA", "C++", "PHP", "MySQL", "HTML", "CSS", "JS", "Vue", "..."],<br>
+        &emsp;"interest": ["Clean Code", "Testing", "Linux", "..."],<br>
+        &emsp;"quote"&emsp;&nbsp;: "There is nothing good unless you do it. - Erich K&auml;stner"<br>
+      }</p>
+    </div>
+  </div>
+</template>

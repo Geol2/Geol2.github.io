@@ -1,145 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <link rel="icon" href="./favicon.ico">
     <link rel="stylesheet" href="./public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./public/css/style.css">
+
     <title>Geol Diary</title>
   </head>
   <body class="typewriter">
-    <div id="app" data-include-path="./layout.html">
-    </div>
-    
-    <script type="text/javascript">
+    <!-- layout.html(조각)이 이 자리에 삽입된다. -->
+    <div id="app" data-include-path="./layout.html"></div>
 
-      let contents = [
-        {
-          index: 0,
-          fileName: 'project-20241101.html',
-          name: 'Project'
-        },
-        {
-          index: 1,
-          fileName: 'empty.html',
-          name: 'Linear Algebra',
-          details: [
-            {
-              index: 0,
-              name: 'Introduction',
-              fileName: '20250201.html',
-            }
-          ]
-        },
-        {
-          index: 2,
-          fileName: 'empty.html',
-          name: 'Posts',
-        }
-      ];
-
-      function includehtml() {
-        let allElements = $("#app");
-        Array.prototype.forEach.call(allElements, function (el) {
-          let includePath = el.dataset.includePath;
-          if (includePath) {
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-              if (this.readyState == 4 && this.status == 200) {
-                el.outerHTML = this.responseText;
-              }
-            };
-            xhttp.open('GET', includePath, false);
-            xhttp.send();
-          }
-        });
-      }
-
-      $(document).ready(function () {
-        includehtml();
-      });
-
-      function loadContent(url) {
-        $.ajax({
-          url: './posts/' + url,
-          method: 'GET',
-          success: function (data) {
-            $('#contents-body').html(data);
-          },
-          error: function (error) {
-            $('#contents-body').html('<p>Error loading content.</p>');
-          }
-        });
-      }
-
-      function loadStudyList() {
-
-      }
-
-      function loadContentsList() {
-        let contentsElement = document.getElementById('list-group');
-        let html = ``;
-
-        // console.log(contents);
-        contents.forEach((item) => {
-          html += `
-            <a class="nav bd-sidenav-active list-group-item"` +
-              `style="padding: 5px 1px; flex-direction: column;"`;
-          if(!item.details) {
-            html += `href="javascript:void(0);" onclick="loadContent('${item.fileName}')"`;
-          }
-              html += `id='${item.name}'">` +
-            `${item.name}` +
-          `</a>`;
-        });
-        contentsElement.innerHTML += html;
-        
-        console.log(contents[1].details);
-        if(!contents[1].details) {
-          return;
-        }
-        if(contents[1].details.length < 1) {
-          return;
-        }
-        
-        let detailHtml = ``;
-        let LinearDetail = document.getElementById('Linear Algebra');
-        let count = contents[1].details.length;
-        let i = 0;
-        contents[1].details.forEach((item) => {
-          // console.log(count);
-          if(i === 0) {
-            detailHtml += `<ul class="nav bd-sidenav-active" style="flex-direction: column; padding: 2px;">`;
-          }
-          detailHtml += `
-            <li class="bd-sidenav-active">
-              <a href="javascript:void(0);" onclick="loadContent('${item.fileName}')">
-                ${item.name}
-              </a>
-            </li>`;
-          if(i === 0) {
-            detailHtml += `</ul>`;
-          }
-
-          i++;
-        });
-        LinearDetail.innerHTML += detailHtml;
-
-      }
-
-      window.onload = function() {
-        let retrospectiveElement = document.querySelector("#retrospective");
-        let retrospective = retrospectiveElement.dataset.retrospective;
-
-        if(retrospective === "active") {
-          loadContentsList();
-        } else {
-          loadStudyList();
-        }
-      };
-      
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="./public/js/bootstrap.bundle.js"></script>
+    <script src="./public/js/app.js"></script>
   </body>
 </html>

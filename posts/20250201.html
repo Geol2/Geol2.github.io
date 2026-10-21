@@ -3,40 +3,33 @@
   <p>또 다르게 미적분학이 항상 언급되는데 말그대로 물리학, 공학, 자연적인 변화와 움직임을 표현하는데에 적합하다. 결국 둘 다 상호보완적이다.</p>
   <p>가우시안 소거법이 가장 먼저 언급되는 것 같고 처음 들어보는 낯선(?) 내용이였다.</p>
   <p>가우시안 소거법은 행렬을 통해서 연립방정식을 풀어내는 방법이다. 일반적으로 배웠던 소거법이 가우시안 소거법을 간소화한 것이고 많은 데이터를 다뤄야할 땐 행렬을 이용한 방법이 효율적이다.</p>
-  
+
   <h3>가우시안 소거법</h3>
-  <p>가우시안 소거법에서 A=LU 분해를 이용하면 Ax=b형태의 연립방정식을 풀어볼 수 있다</p>
-  
+  <p>가우시안 소거법에서 A=LU 분해를 이용하면 Ax=b 형태의 연립방정식을 풀어볼 수 있다.</p>
+
   <math display="block">
     <mrow>
-      <mrow>
-        <mi>A</mi>
-        <mo>=</mo>
-        <mi>L</mi>
-        <mi>U</mi>
-      </mrow>
+      <mi>A</mi>
+      <mo>=</mo>
+      <mi>L</mi>
+      <mi>U</mi>
     </mrow>
   </math>
-  <br>
 
-  <p>L : 하삼각행렬, U: 상삼각행렬</p>
+  <p>L : 하삼각행렬, U : 상삼각행렬</p>
 
   <math display="block">
     <mrow>
-      <mo>A</mo>
+      <mi>A</mi>
       <mo>=</mo>
-      <mo>(</mo>
-      <mtable>
-        <mtr>
-          <mtd><mi>1</mi></mtd>
-          <mtd><mi>2</mi></mtd>
-        </mtr>
-        <mtr>
-          <mtd><mi>4</mi></mtd>
-          <mtd><mi>5</mi></mtd>
-        </mtr>
-      </mtable>
-      <mo>)</mo>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>1</mn></mtd><mtd><mn>2</mn></mtd></mtr>
+          <mtr><mtd><mn>4</mn></mtd><mtd><mn>5</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
     </mrow>
   </math>
 
@@ -44,339 +37,371 @@
 
   <math display="block">
     <mrow>
-      <mo>(</mo>
-      <mtable>
-        <mtr>
-          <mtd><mi>1</mi></mtd>
-          <mtd><mi>2</mi></mtd>
-        </mtr>
-        <mtr>
-          <mtd><mi>4</mi></mtd>
-          <mtd><mi>5</mi></mtd>
-        </mtr>
-      </mtable>
-      <mo>)</mo>
-
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>1</mn></mtd><mtd><mn>2</mn></mtd></mtr>
+          <mtr><mtd><mn>4</mn></mtd><mtd><mn>5</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
       <mo>=</mo>
-      
-      <mo>(</mo>
-      <mtable>
-        <mtr>
-          <mtd><mi>1</mi></mtd>
-          <mtd><mi>0</mi></mtd>
-        </mtr>
-        <mtr>
-          <mtd><mi>4</mi></mtd>
-          <mtd><mi>1</mi></mtd>
-        </mtr>
-      </mtable>
-      <mo>)</mo>
-
-      <mo>(</mo>
-      <mtable>
-        <mtr>
-          <mtd><mi>1</mi></mtd>
-          <mtd><mi>2</mi></mtd>
-        </mtr>
-        <mtr>
-          <mtd><mi>0</mi></mtd>
-          <mtd><mi>-3</mi></mtd>
-        </mtr>
-      </mtable>
-      <mo>)</mo>
-      
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr>
+          <mtr><mtd><mn>4</mn></mtd><mtd><mn>1</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>1</mn></mtd><mtd><mn>2</mn></mtd></mtr>
+          <mtr><mtd><mn>0</mn></mtd><mtd><mn>-3</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
       <mo>=</mo>
-
       <mi>L</mi>
       <mi>U</mi>
     </mrow>
   </math>
 
-  <p>위처럼 Factorization 과정이 독특했는데 U(상삼각행렬)의 2행 1열을 0으로 강제로 만들기 위해서 U의 2행 1열, 2열을 아래처럼 계산해줘야한다</p>
+  <p>위처럼 Factorization 과정이 독특했는데, U(상삼각행렬)의 2행 1열을 0으로 만들기 위해 2행에서 1행의 4배를 빼준다. 이때 사용한 배수 4가 그대로 L의 2행 1열에 남는다.</p>
 
-  <p>
-    <math>
+  <math display="block">
+    <mrow>
       <mrow>
-        <msub>
-          <mi>a</mi>
-          <mrow>
-            <mn>1</mn>
-            <mn>1</mn>
-          </mrow>
-        </msub>
-        <mo>*</mo>
-        <mi>-4</mi>
-        <mo>*</mo>
-        <msub>
-          <mi>a</mi>
-          <mrow>
-            <mn>2</mn>
-            <mn>1</mn>
-          </mrow>
-        </msub>
+        <mn>4</mn>
+        <mo>-</mo>
+        <mn>4</mn>
+        <mo>&#x22C5;</mo>
+        <mn>1</mn>
         <mo>=</mo>
-        <mi>0</mi>
-        <mo>,</mo>
+        <mn>0</mn>
       </mrow>
-    </math>
-
-    <math>
+      <mo>,</mo>
+      <mspace width="1em"></mspace>
       <mrow>
-        <msub>
-          <mi>a</mi>
-          <mrow>
-            <mn>1</mn>
-            <mn>2</mn>
-          </mrow>
-        </msub>
-        <mo>*</mo>
-        <mi>-4</mi>
-        <mo>*</mo>
-        <msub>
-          <mi>a</mi>
-          <mrow>
-            <mn>2</mn>
-            <mn>2</mn>
-          </mrow>
-        </msub>
+        <mn>5</mn>
+        <mo>-</mo>
+        <mn>4</mn>
+        <mo>&#x22C5;</mo>
+        <mn>2</mn>
         <mo>=</mo>
-        <mi>-3</mi>
+        <mn>-3</mn>
       </mrow>
-    </math>
-  </p>
+    </mrow>
+  </math>
 
-  <p>위 식을 통해서 (L의 역행렬) * A = U 라는 것을 도출해낼 수 있고 A = L * U가 된다. </p>
-  <p>그럼 Ly = b(전방대입), Ux = y(후방대입) 순서대로 x = -1, y = 2 값을 도출해낼 수 있다.</p>
+  <p>소거에 쓴 연산을 행렬로 적으면 E &#x22C5; A = U 이고, 양변에 E의 역행렬을 곱하면 A = E<sup>-1</sup>U 가 된다. 이 E<sup>-1</sup>이 바로 L이므로 A = LU 가 성립한다.</p>
 
-  <p>3x3 행렬을 설명해보면, LU를 통해서 U 를 확인해볼 수 있다.</p>
-  <p>
-    <math>
-      <mo>A</mo>
+  <p>이제 b를 하나 정해서 풀어보면, b = (3, 6) 일 때 Ly = b(전방대입)로 y를 구하고, Ux = y(후방대입)로 x를 구한다.</p>
+
+  <math display="block">
+    <mrow>
+      <mi>y</mi>
       <mo>=</mo>
       <mo>(</mo>
-        <mtable>
-          <mtr>
-            <mtd><mi>2</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>-1</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>-3</mi></mtd>
-            <mtd><mi>-1</mi></mtd>
-            <mtd><mi>2</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>-2</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>2</mi></mtd>
-        </mtable>
-      <mo>)</mo>
-    </math>
-  </p>
-
-  <p>
-    <math>
-      <msup>
-        <mrow>
-          <mi>L</mi>
-          <msub>
-            <mrow></mrow>
-            <mn>1</mn>
-          </msub>
-        </mrow>
-        <mrow>
-          <mn>-1</mn>
-        </mrow>
-      </msup>
-      <mi>U</mi>
-      <mo>=</mo>
-      <mo>(</mo>
-        <mtable>
-          <mtr>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>-2/3</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-        </mtable>
-      <mo>)</mo>
-      <mo>(</mo>
-        <mtable>
-          <mtr>
-            <mtd><mi>2</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>-1</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>1/2</mi></mtd>
-            <mtd><mi>1/2</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>-2</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>2</mi></mtd>
-        </mtable>
-      <mo>)</mo>
+      <mn>3</mn>
       <mo>,</mo>
-
-      <msup>
-        <mrow>
-          <mi>L</mi>
-          <msub>
-            <mrow></mrow>
-            <mn>2</mn>
-          </msub>
-        </mrow>
-        <mrow>
-          <mn>-1</mn>
-        </mrow>
-      </msup>
-      <mi>U</mi>
+      <mn>-6</mn>
+      <mo>)</mo>
+      <mo>&#x21D2;</mo>
+      <mi>x</mi>
       <mo>=</mo>
       <mo>(</mo>
-        <mtable>
-          <mtr>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>-1</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-        </mtable>
-      <mo>)</mo>
-      <mo>(</mo>
-        <mtable>
-          <mtr>
-            <mtd><mi>2</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>-1</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>1/2</mi></mtd>
-            <mtd><mi>1/2</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>2</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-        </mtable>
-      <mo>)</mo>
+      <mn>-1</mn>
       <mo>,</mo>
+      <mn>2</mn>
+      <mo>)</mo>
+    </mrow>
+  </math>
 
-      <msup>
-        <mrow>
-          <mi>L</mi>
-          <msub>
-            <mrow></mrow>
-            <mn>3</mn>
-          </msub>
-        </mrow>
-        <mrow>
-          <mn>-1</mn>
-        </mrow>
-      </msup>
-      <mi>U</mi>
+  <p>3x3 행렬도 같은 방식이다. 다음 A를 소거해 U를 구해본다.</p>
+
+  <math display="block">
+    <mrow>
+      <mi>A</mi>
       <mo>=</mo>
-      <mo>(</mo>
+      <mrow>
+        <mo>(</mo>
         <mtable>
-          <mtr>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>4</mi></mtd>
-            <mtd><mi>1</mi></mtd>
+          <mtr><mtd><mn>2</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>-1</mn></mtd></mtr>
+          <mtr><mtd><mn>-3</mn></mtd><mtd><mn>-1</mn></mtd><mtd><mn>2</mn></mtd></mtr>
+          <mtr><mtd><mn>-2</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>2</mn></mtd></mtr>
         </mtable>
-      <mo>)</mo>
-      <mo>(</mo>
-        <mtable>
-          <mtr>
-            <mtd><mi>2</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>-1</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>1/2</mi></mtd>
-            <mtd><mi>1/2</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>-1</mi></mtd>
-        </mtable>
-      <mo>)</mo>
-    </math>
-  </p>
+        <mo>)</mo>
+      </mrow>
+    </mrow>
+  </math>
+
+  <p>소거는 한 번에 끝나지 않고, 0으로 만들 자리마다 소거행렬을 하나씩 곱해 나간다. 각 단계에서 쓰는 승수는 <em>(없애려는 성분) &#x00F7; (피벗)</em> 이다.</p>
 
   <p>
-    <math>
-      <mo>LU</mo>
-      <mo>=</mo>
-      <mo>(</mo>
-        <mtable>
-          <mtr>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>3/2</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>-4</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-        </mtable>
-      <mo>)</mo>
-      <mo>(</mo>
-        <mtable>
-          <mtr>
-            <mtd><mi>2</mi></mtd>
-            <mtd><mi>1</mi></mtd>
-            <mtd><mi>-1</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>1/2</mi></mtd>
-            <mtd><mi>1/2</mi></mtd>
-          </mtr>
-          <mtr>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>0</mi></mtd>
-            <mtd><mi>-1</mi></mtd>
-        </mtable>
-      <mo>)</mo>
-    </math>
+    1단계 : 승수 m<sub>21</sub> = -3 &#x00F7; 2 = -3/2 &#x2192; 2행에서 1행의 (-3/2)배를 뺀다<br>
+    2단계 : 승수 m<sub>31</sub> = -2 &#x00F7; 2 = -1 &#x2192; 3행에서 1행의 (-1)배를 뺀다<br>
+    3단계 : 승수 m<sub>32</sub> = 2 &#x00F7; (1/2) = 4 &#x2192; 3행에서 2행의 4배를 뺀다
   </p>
+
+  <math display="block">
+    <mrow>
+      <msub><mi>E</mi><mn>32</mn></msub>
+      <msub><mi>E</mi><mn>31</mn></msub>
+      <msub><mi>E</mi><mn>21</mn></msub>
+      <mi>A</mi>
+      <mo>=</mo>
+      <mi>U</mi>
+      <mo>=</mo>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>2</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>-1</mn></mtd></mtr>
+          <mtr><mtd><mn>0</mn></mtd><mtd><mfrac><mn>1</mn><mn>2</mn></mfrac></mtd><mtd><mfrac><mn>1</mn><mn>2</mn></mfrac></mtd></mtr>
+          <mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>-1</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+    </mrow>
+  </math>
+
+  <p>여기서 재미있는 점은 L을 따로 계산할 필요가 없다는 것이다. 위에서 구한 승수 m<sub>ij</sub>를 L의 (i, j) 자리에 그대로 적어 넣으면 된다.</p>
+
+  <math display="block">
+    <mrow>
+      <mi>A</mi>
+      <mo>=</mo>
+      <mi>L</mi>
+      <mi>U</mi>
+      <mo>=</mo>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr>
+          <mtr><mtd><mrow><mo>-</mo><mfrac><mn>3</mn><mn>2</mn></mfrac></mrow></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr>
+          <mtr><mtd><mn>-1</mn></mtd><mtd><mn>4</mn></mtd><mtd><mn>1</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>2</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>-1</mn></mtd></mtr>
+          <mtr><mtd><mn>0</mn></mtd><mtd><mfrac><mn>1</mn><mn>2</mn></mfrac></mtd><mtd><mfrac><mn>1</mn><mn>2</mn></mfrac></mtd></mtr>
+          <mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>-1</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+    </mrow>
+  </math>
+
+  <p>L의 대각선 아래가 (-3/2, -1, 4)로 승수와 정확히 일치한다. 소거하면서 기록만 해두면 L이 공짜로 따라오는 셈이다.</p>
 
   <h3>선형 방정식의 기하학</h3>
-  <p>두 개의 연립방정식이라도 행렬로 표현된 방정식으로 그래프가 다르게 표현될 수도 있다.</p>
+  <p>하나의 연립방정식을 읽는 방법은 두 가지다. 행 단위로 보는 관점(row picture)과 열 단위로 보는 관점(column picture)이고, 같은 식이라도 머릿속에 그려지는 그림이 전혀 다르다.</p>
+
+  <h4>행 그림 (Row Picture)</h4>
+  <p>다음 연립방정식을 보자.</p>
+
+  <math display="block">
+    <mtable>
+      <mtr>
+        <mtd>
+          <mrow><mn>2</mn><mi>x</mi><mo>-</mo><mi>y</mi><mo>=</mo><mn>1</mn></mrow>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>=</mo><mn>5</mn></mrow>
+        </mtd>
+      </mtr>
+    </mtable>
+  </math>
+
+  <p>각 방정식을 xy 평면 위의 직선 하나로 본다. 첫 식은 기울기 2인 직선, 둘째 식은 기울기 -1인 직선이다. 연립방정식의 해는 <strong>두 직선이 만나는 점</strong>이고 여기서는 (2, 3) 이다. 행렬로 적으면 A의 각 행이 직선 하나에 대응한다.</p>
+
+  <h4>열 그림 (Column Picture)</h4>
+  <p>같은 식을 열 기준으로 묶으면 모양이 달라진다.</p>
+
+  <math display="block">
+    <mrow>
+      <mi>x</mi>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>2</mn></mtd></mtr>
+          <mtr><mtd><mn>1</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+      <mo>+</mo>
+      <mi>y</mi>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>-1</mn></mtd></mtr>
+          <mtr><mtd><mn>1</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+      <mo>=</mo>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>1</mn></mtd></mtr>
+          <mtr><mtd><mn>5</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+    </mrow>
+  </math>
+
+  <p>이제 문제가 두 직선의 교점을 찾는 것에서 <strong>두 벡터를 어떤 비율로 섞으면 b가 되는가</strong>로 바뀐다. x = 2, y = 3 을 넣어보면 실제로 b가 나온다.</p>
+
+  <math display="block">
+    <mrow>
+      <mn>2</mn>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>2</mn></mtd></mtr>
+          <mtr><mtd><mn>1</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+      <mo>+</mo>
+      <mn>3</mn>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>-1</mn></mtd></mtr>
+          <mtr><mtd><mn>1</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+      <mo>=</mo>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>4</mn></mtd></mtr>
+          <mtr><mtd><mn>2</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+      <mo>+</mo>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>-3</mn></mtd></mtr>
+          <mtr><mtd><mn>3</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+      <mo>=</mo>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>1</mn></mtd></mtr>
+          <mtr><mtd><mn>5</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+    </mrow>
+  </math>
+
+  <p>즉 Ax는 A의 열벡터들의 <strong>선형결합(linear combination)</strong>이고, Ax = b 는 b가 A의 열들로 만들 수 있는 것인지를 묻는 질문이다.</p>
+
+  <h4>왜 열 그림이 중요한가</h4>
+  <p>행 그림은 2차원에서 직선, 3차원에서 평면이라 눈으로 그릴 수 있지만 차원이 커지면 그릴 수 없다. 반면 열 그림의 선형결합이라는 개념은 차원과 무관하게 그대로 확장된다. 뒤에 나오는 열공간, 계수(rank), 기저 같은 개념이 전부 이 관점에서 출발한다. Strang이 열 그림을 반복해서 강조하는 이유가 여기 있다.</p>
+
+  <h4>3x3 &#x2014; 평면 세 개</h4>
+  <p>앞에서 LU 분해한 A에 b = (1, 1, 6) 을 주면 해는 (1, 2, 3) 이다.</p>
+  <p>행 그림으로는 3차원 공간에 평면이 세 개 놓인 모습이고, 세 평면이 한 점에서 만나면 그 점이 유일한 해다. 열 그림으로는 세 열벡터를 1 : 2 : 3 으로 섞어 b를 만드는 문제가 된다.</p>
+
+  <math display="block">
+    <mrow>
+      <mn>1</mn>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>2</mn></mtd></mtr>
+          <mtr><mtd><mn>-3</mn></mtd></mtr>
+          <mtr><mtd><mn>-2</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+      <mo>+</mo>
+      <mn>2</mn>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>1</mn></mtd></mtr>
+          <mtr><mtd><mn>-1</mn></mtd></mtr>
+          <mtr><mtd><mn>1</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+      <mo>+</mo>
+      <mn>3</mn>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>-1</mn></mtd></mtr>
+          <mtr><mtd><mn>2</mn></mtd></mtr>
+          <mtr><mtd><mn>2</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+      <mo>=</mo>
+      <mrow>
+        <mo>(</mo>
+        <mtable>
+          <mtr><mtd><mn>1</mn></mtd></mtr>
+          <mtr><mtd><mn>1</mn></mtd></mtr>
+          <mtr><mtd><mn>6</mn></mtd></mtr>
+        </mtable>
+        <mo>)</mo>
+      </mrow>
+    </mrow>
+  </math>
+
+  <p>같은 답을 앞의 LU로도 구할 수 있다. Ly = b 를 전방대입하면 y = (1, 5/2, -3) 이고, Ux = y 를 후방대입하면 x = (1, 2, 3) 이다. 기하학적으로 세 평면의 교점으로 본 답과 대수적으로 소거법으로 푼 답이 같다는 것을 확인할 수 있다.</p>
+
+  <h4>해가 하나가 아닌 경우</h4>
+  <p>두 개의 연립방정식이라도 행렬로 표현된 방정식의 그래프가 다르게 표현될 수 있다는 것이 이 부분이다. 다음 두 경우를 비교해보자.</p>
+
+  <math display="block">
+    <mrow>
+      <mtable>
+        <mtr><mtd><mrow><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi><mo>=</mo><mn>3</mn></mrow></mtd></mtr>
+        <mtr><mtd><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>4</mn><mi>y</mi><mo>=</mo><mn>6</mn></mrow></mtd></mtr>
+      </mtable>
+      <mspace width="3em"></mspace>
+      <mtable>
+        <mtr><mtd><mrow><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi><mo>=</mo><mn>3</mn></mrow></mtd></mtr>
+        <mtr><mtd><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>4</mn><mi>y</mi><mo>=</mo><mn>7</mn></mrow></mtd></mtr>
+      </mtable>
+    </mrow>
+  </math>
+
+  <p>왼쪽은 둘째 식이 첫 식의 정확히 2배다. 두 직선이 완전히 겹치므로 <strong>해가 무수히 많다</strong>. 오른쪽은 좌변만 2배이고 우변이 맞지 않는다. 두 직선이 평행해서 만나지 않으므로 <strong>해가 없다</strong>.</p>
+
+  <p>열 그림으로 보면 두 경우의 차이가 더 분명해진다. 두 열 (1, 2)와 (2, 4)는 서로 평행해서, 아무리 섞어도 평면 전체가 아니라 <strong>직선 하나</strong>밖에 만들지 못한다.</p>
+  <p>
+    b = (3, 6) &#x2192; 그 직선 위에 있다 &#x2192; 해가 존재하고 무수히 많다<br>
+    b = (3, 7) &#x2192; 그 직선 위에 없다 &#x2192; 해가 없다
+  </p>
+
+  <p>소거법에서는 이것이 <strong>피벗</strong>으로 드러난다. 2행에서 1행의 2배를 빼면 둘째 행이 (0 0 | 0) 또는 (0 0 | 1)이 되어 두 번째 피벗이 0이 된다. 이렇게 피벗이 0으로 떨어지는 행렬을 <strong>특이행렬(singular matrix)</strong>이라 하고, 이때 A는 역행렬을 갖지 못한다. 앞선 예제들이 문제없이 풀렸던 것은 피벗이 모두 0이 아니었기 때문이다.</p>
+
+  <p>3x3 에서는 평면 세 개가 놓이는 방식이 더 다양하다.</p>
+  <p>
+    &#x00B7; 한 점에서 만남 &#x2192; 유일한 해 (비특이)<br>
+    &#x00B7; 한 직선을 공유 &#x2192; 해가 무수히 많음<br>
+    &#x00B7; 평면끼리는 만나지만 세 평면의 공통점이 없음 (삼각기둥 모양) &#x2192; 해가 없음<br>
+    &#x00B7; 두 평면 이상이 평행 &#x2192; 해가 없음
+  </p>
+  <p>뒤의 세 경우는 모두 소거 과정에서 피벗 하나가 0이 되는 것으로 나타난다. 결국 그래프가 어떻게 놓이는가라는 기하학적 질문과 피벗이 0이 되는가라는 대수적 질문이 같은 것을 보고 있는 셈이다.</p>
 
 </div>

@@ -11,11 +11,15 @@
     <title>Geol Diary</title>
   </head>
   <body class="typewriter">
+    <!-- 배경 효과 (본문과 무관, 클릭·스크롤에 관여하지 않음) -->
+    <canvas id="code-rain" aria-hidden="true"></canvas>
+
     <!-- layout.html(조각)이 이 자리에 삽입된다. -->
     <div id="app" data-include-path="./layout.html"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="./public/js/bootstrap.bundle.js"></script>
     <script src="./public/js/app.js"></script>
+    <script src="./public/js/code-rain.js"></script>
   </body>
 </html>

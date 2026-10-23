@@ -377,3 +377,27 @@ body.typewriter ::selection {
   background: var(--mx-fg);
   color: var(--mx-bg);
 }
+
+/* 배경 효과 (code-rain.js) : 본문 뒤에 옅게 깔고, 글 영역은 검정 바탕을 유지한다. */
+#code-rain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+html,
+body.typewriter {
+  background: transparent !important;
+}
+
+html {
+  background: #000 !important;
+}
+
+body.typewriter .content,
+body.typewriter .sidebar,
+body.typewriter .site-header {
+  background-color: rgba(0, 0, 0, 0.92) !important;
+}

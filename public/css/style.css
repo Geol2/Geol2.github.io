@@ -97,6 +97,14 @@
   overflow-x: auto;
 }
 
+/* 코드 블록 : 테마 배경(파랑) 위에서 읽히도록 패널 색으로 띄운다. */
+.content-body pre {
+  background: var(--dos-panel);
+  color: var(--dos-panel-fg);
+  padding: 0.75rem 1rem;
+  white-space: pre;
+}
+
 /* ---------------------------------------------------------- header */
 
 .site-header {

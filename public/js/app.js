@@ -28,6 +28,12 @@
       ]
     },
     {
+      name: 'Jenkins',
+      children: [
+        { name: '개발서버 자동 테스트 구성', file: 'jenkins/20261023.html' }
+      ]
+    },
+    {
       name: 'Posts',
       children: []
     }

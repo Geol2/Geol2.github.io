@@ -1,0 +1,130 @@
+<div class="container my-2 readable">
+  <p>레거시 eGovFrame(Spring MVC + MyBatis + JSP) 프로젝트의 개발서버를 Jenkins로 자동 확인하도록 구성한 기록이다.
+    Jenkins는 내 PC의 Docker 컨테이너로 띄웠고, Windows 에이전트를 하나 붙였다.</p>
+
+  <h3>무엇을 확인하나</h3>
+  <p>개발서버 확인을 세 갈래로 나눴다. 각각 확인하는 대상이 다르다.</p>
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr><th>Job</th><th>도구</th><th>확인 대상</th><th>주기</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>API 스모크</td><td>newman (Postman CLI)</td><td>개발서버에 배포된 버전의 REST API·로그인 흐름</td><td>10분마다</td></tr>
+      <tr><td>화면 E2E</td><td>Playwright</td><td>개발서버에 배포된 버전의 화면 (메뉴, 탭, 상세, 업로드, 결재 흐름)</td><td>평일 점심 1회</td></tr>
+      <tr><td>JUnit</td><td>Maven + JUnit 5</td><td>SVN에 커밋된 코드를 개발 DB에 붙여서 서비스·매퍼 SQL 검증</td><td>SVN 커밋이 있을 때</td></tr>
+    </tbody>
+  </table>
+  <p>헷갈렸던 점: Jenkins는 개발서버에서 돌지 않는다. Git에서 받는 것도 "어떤 요청을 보내고 무엇을 확인할지"가 적힌 시나리오뿐이다.
+    실행은 Jenkins가 하고, 개발서버는 이미 떠 있는 애플리케이션으로 요청에 응답만 한다.</p>
+<pre>
+[GitHub / SVN] ── 시나리오·코드 ──▶ [내 PC Jenkins (Docker / Windows 에이전트)]
+                                         │  HTTP 요청, DB 연결
+                                         ▼
+                                    [개발서버 WAS + DB]  ← 아무것도 설치하지 않음
+</pre>
+
+  <h3>Jenkins 기본 용어</h3>
+  <ul>
+    <li><b>Job(Item)</b> : 작업 하나. 메인 화면 → Job 클릭 → 왼쪽 <b>Configure(구성)</b>가 Job 설정 화면이다.</li>
+    <li><b>Jenkins 관리</b> : 전체 설정. 플러그인 설치(Plugins), 도구 설치(Tools), 비밀번호 보관(Credentials)은 여기서 한다.</li>
+    <li>Job 설정 화면은 위에서부터 <b>General → 소스 코드 관리 → 빌드 유발 → 빌드 환경 → Build Steps → 빌드 후 조치</b> 순서다.</li>
+  </ul>
+
+  <h3>1. API 스모크 (newman)</h3>
+  <ol>
+    <li>Jenkins 관리 → Plugins → <b>NodeJS</b> 설치</li>
+    <li>Jenkins 관리 → Tools → NodeJS installations → 버전 선택, Global npm packages 에 <code>newman</code></li>
+    <li>Jenkins 관리 → Credentials → <b>Secret text</b> 로 테스트 계정 비밀번호 등록</li>
+    <li>Job(Freestyle) 설정
+      <ul>
+        <li>소스 코드 관리 : 시나리오가 있는 Git 저장소</li>
+        <li>빌드 유발 : Build periodically <code>H/10 8-21 * * 1-5</code> (평일 08~21시 10분마다)</li>
+        <li>빌드 환경 : Provide Node &amp; npm bin/ folder to PATH, Use secret text(s) → 변수 <code>APP_PW</code></li>
+        <li>빌드 후 조치 : Publish JUnit test result report → <code>results.xml</code></li>
+      </ul>
+    </li>
+  </ol>
+<pre>
+newman run postman/smoke.postman_collection.json \
+  -e postman/dev.postman_environment.json \
+  --env-var "password=$APP_PW" \
+  --timeout-request 10000 \
+  -r cli,junit --reporter-junit-export results.xml
+</pre>
+  <p>컬렉션에는 조회 API만 넣었다. 10분마다 등록·삭제 API를 돌리면 개발 DB에 테스트 데이터가 계속 쌓인다.
+    인증 실패(헤더 누락, 미등록 사용자)가 제대로 거부되는지도 같이 넣었다.</p>
+
+  <h3>2. 화면 E2E (Playwright)</h3>
+  <p>로컬에서 쓰던 Playwright 테스트에 개발서버 대상(project)을 하나 추가했다. 로컬은 설치된 Chrome, Jenkins(Linux 컨테이너)는 Playwright 내장 Chromium을 쓰도록 나눴다.</p>
+<pre>
+// playwright.config.js
+reporter: process.env.JENKINS_URL
+    ? [["list"], ["junit", { outputFile: "results-e2e.xml" }], ["html", { open: "never" }]]
+    : undefined,
+use: {
+    channel: process.env.JENKINS_URL ? undefined : "chrome",
+}
+</pre>
+  <p>컨테이너에서 브라우저를 띄우려면 OS 라이브러리가 필요하다. 최초 한 번 root로 설치한다. (컨테이너를 새로 만들면 다시 해야 한다)</p>
+<pre>
+docker exec -u root &lt;jenkins컨테이너&gt; bash -c "export PATH=&lt;NodeJS 도구 경로&gt;/bin:$PATH &amp;&amp; npx -y playwright install-deps chromium"
+</pre>
+<pre>
+npm ci
+npx playwright install chromium
+npx playwright test --project=dev --workers=1
+</pre>
+  <ul>
+    <li>빌드 후 조치 : Publish JUnit test result report → <code>results-e2e.xml</code> (이걸 빼먹으면 Job 화면에 테스트 결과 그래프가 안 뜬다)</li>
+    <li>Archive the artifacts → <code>playwright-report/**, test-results/**</code> : 실패 스크린샷을 Jenkins에서 바로 본다</li>
+    <li><code>--workers=1</code> : DB에 시드 데이터를 넣는 테스트들이 같은 계정·같은 데이터를 동시에 건드리면 flaky 가 난다. 하루 1회 Job 이라 속도보다 안정성.</li>
+  </ul>
+
+  <h3>3. JUnit (SVN + Windows 에이전트)</h3>
+  <ol>
+    <li>Jenkins 관리 → Plugins → <b>Subversion</b> 설치</li>
+    <li>Credentials → Username with password 로 SVN 계정 등록</li>
+    <li>Job 설정
+      <ul>
+        <li>소스 코드 관리 : Subversion, Check-out Strategy "Use 'svn update' as much as possible"</li>
+        <li>빌드 유발 : <b>Poll SCM</b> <code>H/10 8-21 * * 1-5</code> → 10분마다 확인하고 <b>커밋이 있을 때만</b> 빌드</li>
+        <li>빌드 후 조치 : <code>target/surefire-reports/*.xml</code></li>
+      </ul>
+    </li>
+  </ol>
+<pre>
+chcp 65001 &gt; nul
+set MAVEN_OPTS=-Dfile.encoding=UTF-8
+call mvn -v
+call mvn -B clean test -DskipTests=false -Dsurefire.failIfNoSpecifiedTests=false "-Dtest=*Mock*Test,*SpringTest,..."
+</pre>
+  <p>pom.xml 에 <code>skipTests=true</code> 가 기본값이라 평소 빌드·배포에는 영향 없이 Jenkins에서만 <code>-DskipTests=false</code> 로 켠다.
+    Spring 테스트는 개발 DB에 붙지만 대부분 <code>@Transactional</code> 로 되돌리고, 직접 지우는 테스트는 <code>@AfterEach</code> 에서 정리한다.</p>
+
+  <h3>겪은 오류와 해결</h3>
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr><th>증상</th><th>원인</th><th>해결</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>Cannot run program "cmd"</code></td><td>Jenkins가 Docker(Linux) 안에서 돌고 있었다</td><td>Execute Windows batch command → <b>Execute shell</b></td></tr>
+      <tr><td><code>npm: not found</code></td><td>새 Job에 Node 설정 누락</td><td>빌드 환경 → Provide Node &amp; npm bin/ folder to PATH</td></tr>
+      <tr><td><code>Couldn't find any revision to build</code></td><td>브랜치가 <code>*/master</code> 로 설정, 저장소는 <code>main</code></td><td>Branches to build → <code>*/main</code></td></tr>
+      <tr><td>API 404</td><td>컬렉션 URL 끝의 <code>/</code> 가 빠짐 (매핑은 <code>/workspaceList/</code>)</td><td>요청 URL을 문자열로 저장해 끝 슬래시 유지</td></tr>
+      <tr><td>로그에 <code>password=</code> 로 비어 있음</td><td>Secret text 바인딩이 Job에 적용 안 됨</td><td>빌드 환경 Bindings 에서 Credential 선택. 연결되면 로그에 <code>****</code> 로 가려진다</td></tr>
+      <tr><td>배치에서 <code>mvn -v</code> 만 실행되고 끝남</td><td><code>mvn</code> 은 <code>mvn.cmd</code>(배치)라 <code>call</code> 없이 부르면 배치가 종료</td><td><code>call mvn ...</code></td></tr>
+      <tr><td>Playwright strict mode violation (닫기 버튼 2개)</td><td>웹접근성 작업으로 팝업 헤더 X 버튼에 <code>aria-label="닫기"</code> 가 붙음</td><td><code>getByRole('button', { name: '닫기' }).and(page.locator('button:not(.btn-close)'))</code></td></tr>
+      <tr><td>즐겨찾기 테스트 flaky</td><td>로컬 테스트와 Jenkins가 같은 DB·같은 계정으로 동시에 실행</td><td>동시에 돌리지 않는다, <code>--workers=1</code></td></tr>
+      <tr><td>로컬에서 <code>npm install</code> 시 "malware definitions are missing or invalid"</td><td>nvm-windows 의 <code>npm.exe</code> shim</td><td><code>npm.cmd</code> 로 직접 실행</td></tr>
+      <tr><td>Maven Version 드롭다운에 도구가 안 보임</td><td>Tools 의 Maven installations 가 저장되지 않음 (Maven Configuration 칸과 헷갈림)</td><td>Maven installations → Add Maven → Save 후 Job 설정 새로고침</td></tr>
+    </tbody>
+  </table>
+
+  <h3>운영 메모</h3>
+  <ul>
+    <li>로컬 서버와 개발서버가 같은 DB를 보고 있으면, 로컬 E2E 와 Jenkins 빌드를 같은 시간에 돌리지 않는다.</li>
+    <li>성능 측정하는 시간대에는 10분 주기 Job 을 Disable 해둔다. 측정치에 섞인다.</li>
+    <li>배포 후 화면 E2E 가 깨지면 먼저 구분한다. 실제 회귀인가, 화면 변경(예: aria-label 추가)에 따라 테스트를 고칠 일인가.</li>
+    <li>비밀번호·DB 접속 정보는 저장소가 아니라 Jenkins Credentials(Secret text / Secret file)에 둔다.</li>
+  </ul>
+</div>

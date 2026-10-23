@@ -300,3 +300,80 @@
     display: none;
   }
 }
+
+/* ======================================================================
+ * Matrix 테마 : 검정 바탕 + 초록 글씨.
+ * 기존 DOS 팔레트(bootstrap.min.css)를 이 블록 하나로 덮는다. 되돌리려면 이 블록만 지우면 된다.
+ * ====================================================================== */
+:root {
+  --mx-bg: #000000;
+  --mx-fg: #00ff41;
+  --mx-dim: #008f11;
+  --mx-dark: #0b1f0b;
+}
+
+html,
+body.typewriter {
+  background: var(--mx-bg) !important;
+}
+
+body.typewriter,
+body.typewriter * {
+  background-color: transparent !important;
+  color: var(--mx-fg) !important;
+  border-color: var(--mx-dim) !important;
+  box-shadow: none !important;
+  text-shadow: 0 0 2px rgba(0, 255, 65, 0.35);
+}
+
+body.typewriter .site-header {
+  background: var(--mx-bg) !important;
+  border-bottom: 1px solid var(--mx-dim) !important;
+}
+
+/* 강조 : 반전 없이 초록 글씨만. 테두리·밑줄·> 표시로 구분한다. */
+body.typewriter .content-title {
+  border: 1px solid var(--mx-fg) !important;
+  text-shadow: 0 0 6px rgba(0, 255, 65, 0.6);
+}
+
+body.typewriter .is-active {
+  text-decoration: underline;
+  text-shadow: 0 0 6px rgba(0, 255, 65, 0.6);
+}
+
+body.typewriter .is-active::before {
+  content: "> ";
+}
+
+body.typewriter .navbar-nav .active > .nav-link {
+  text-decoration: underline;
+}
+
+/* 목차 항목마다 생기는 상자는 지운다 */
+body.typewriter .index-tree,
+body.typewriter .index-tree * {
+  border-color: transparent !important;
+}
+
+/* 보조 텍스트·코드 */
+body.typewriter code,
+body.typewriter .content-status,
+body.typewriter .index-branch::after {
+  color: #7dff9b !important;
+}
+
+body.typewriter .content-body pre {
+  background-color: var(--mx-dark) !important;
+  border: 1px solid var(--mx-dim) !important;
+}
+
+body.typewriter input,
+body.typewriter .btn {
+  border: 1px solid var(--mx-dim) !important;
+}
+
+body.typewriter ::selection {
+  background: var(--mx-fg);
+  color: var(--mx-bg);
+}

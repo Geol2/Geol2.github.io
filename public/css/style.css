@@ -401,3 +401,10 @@ body.typewriter .sidebar,
 body.typewriter .site-header {
   background-color: rgba(0, 0, 0, 0.92) !important;
 }
+
+/* 게시글 상하 여백 */
+.content-body > .container,
+.content-body > .container-fluid {
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+}

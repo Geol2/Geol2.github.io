@@ -18,7 +18,8 @@
     {
       name: 'Linear Algebra',
       children: [
-        { name: 'Introduction', file: '20250201.html' }
+        { name: '1. 벡터', file: '20261027.html' },
+        { name: '2. 가우스 소거법과 LU', file: '20250201.html' }
       ]
     },
     {

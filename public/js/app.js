@@ -31,7 +31,8 @@
     {
       name: 'Jenkins',
       children: [
-        { name: '개발서버 자동 테스트 구성', file: 'jenkins/20261023.html' }
+        { name: '개발서버 자동 테스트 구성', file: 'jenkins/20261023.html' },
+        { name: 'E2E Job 상세 구성', file: 'jenkins/20261027.html' }
       ]
     },
     {
